@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The 9x Academic</title>
+    <link rel="icon" type="image/x-icon" href="assets/png/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/png/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/png/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/png/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
@@ -24,7 +28,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 4rem 2rem;
         }
 
         .container {
@@ -34,64 +38,54 @@
         }
 
         .logo {
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
 
-        .logo svg {
-            width: 120px;
-            height: 60px;
+        .logo img {
+            width: 18rem;
         }
 
-        .logo-red { fill: #e61e25; }
-        .logo-gray { fill: #9795b5; }
 
-        .brand {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-
-        .brand .red { color: #e61e25; }
-        .brand .gray { color: #9795b5; }
 
         .tagline {
-            font-size: 1.5rem;
-            color: #9795b5;
-            margin-bottom: 4rem;
-            letter-spacing: -0.01em;
+            margin-bottom: 6rem;
         }
 
-        .tagline .highlight { color: #d4d2e3; }
+        .tagline img {
+            width: 28rem;
+        }
 
         .signup-form {
             background: rgba(45, 45, 80, 0.3);
             border: 1px solid rgba(151, 149, 181, 0.2);
             border-radius: 8px;
-            padding: 2.5rem;
-            margin-bottom: 4rem;
+            padding: 3rem;
+            margin-bottom: 6rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             text-align: left;
         }
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: #9795b5;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #c4c2d3;
         }
 
         input, textarea {
             width: 100%;
-            padding: 0.75rem;
-            background: #1d1d40;
-            border: 1px solid #9795b5;
+            padding: 1rem;
+            background: #5d5a88;
+            border: 1px solid #5d5a88;
             border-radius: 4px;
             color: #d4d2e3;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
         input:focus, textarea:focus {
@@ -138,16 +132,20 @@
         }
 
         @media (max-width: 768px) {
-            .brand {
-                font-size: 2rem;
+            body {
+                padding: 2rem 1rem;
+            }
+            
+            .logo {
+                margin-bottom: 3rem;
             }
             
             .tagline {
-                font-size: 1.2rem;
+                margin-bottom: 4rem;
             }
             
             .signup-form {
-                padding: 1.5rem;
+                padding: 2rem;
             }
         }
     </style>
@@ -155,16 +153,12 @@
 <body>
     <div class="container">
         <div class="logo">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
-                <path class="logo-red" d="M70,50v5c0,.4.3.7.7.7h4.2c.4,0,.7-.3.7-.7v-4.2c0-.4-.3-.7-.7-.7H70Z"/>
-                <path class="logo-gray" d="M70,40h-11c-.4,0-.7.3-.7.7v10c0,.4.3.7.7.7H70V40Z"/>
-                <path class="logo-gray" d="M70,25v22h22c.4,0,.7-.3.7-.7V25.7c0-.4-.3-.7-.7-.7H70.7c-.4,0-.7.3-.7.7Z"/>
-            </svg>
+            <img src="assets/svg/9x-logo.svg" alt="The 9x Academic">
         </div>
-
-        <h1 class="brand">the<span class="red">9x</span><span class="gray">.ac</span></h1>
         
-        <p class="tagline"><span class="highlight">9x</span> the impact of your ideas</p>
+        <div class="tagline">
+            <img src="assets/svg/tagline.svg" alt="9x the impact of your ideas">
+        </div>
 
         <form class="signup-form" action="https://app.convertkit.com/forms/YOUR_FORM_ID/subscriptions" method="post">
             <div class="form-group">
