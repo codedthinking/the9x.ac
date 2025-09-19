@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
+  <defs>
+    <style>
+      .logo-red { fill: #e61e25; }
+      .logo-gray { fill: #9795b5; }
+    </style>
+  </defs>
+  <!-- Geometric book icon -->
+  <path class="logo-red" d="M70,50v5c0,.4.3.7.7.7h4.2c.4,0,.7-.3,.7-.7v-4.2c0-.4-.3-.7-.7-.7H70Z"/>
+  <path class="logo-gray" d="M70,40h-11c-.4,0-.7.3-.7.7v10c0,.4.3.7.7.7H70V40Z"/>
+  <path class="logo-gray" d="M70,25v22h22c.4,0,.7-.3.7-.7V25.7c0-.4-.3-.7-.7-.7H70.7c-.4,0-.7.3-.7.7Z"/>
+</svg>

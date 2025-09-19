@@ -1,0 +1,16 @@
+title: "The 9x Academic"
+description: "9x the impact of your ideas"
+url: "https://the9x.ac"
+baseurl: ""
+
+markdown: kramdown
+highlighter: rouge
+
+sass:
+  style: compressed
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
