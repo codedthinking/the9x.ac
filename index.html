@@ -1,42 +1,64 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The 9x Academic - AI Tools for Economists</title>
-    <meta name="description" content="AI collapses the hidden 9× cost of research. Advanced AI tools for economists and academics to handle documentation, integration, and coordination overhead.">
+    <title>{{ site.data.settings.meta.title }}</title>
+    <meta name="description" content="{{ site.data.settings.meta.description }}">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://the9x.ac/">
-    <meta property="og:title" content="The 9x Academic - AI Tools for Economists">
-    <meta property="og:description" content="AI collapses the hidden 9× cost of research. Save 10-20% of RA supervision time.">
-    <meta property="og:image" content="https://the9x.ac/assets/png/og-image.png">
+    <meta property="og:url" content="{{ site.data.settings.meta.url }}/">
+    <meta property="og:title" content="{{ site.data.settings.meta.title }}">
+    <meta property="og:description" content="{{ site.data.settings.meta.short_description }}">
+    <meta property="og:image" content="{{ site.data.settings.meta.og_image }}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://the9x.ac/">
-    <meta property="twitter:title" content="The 9x Academic - AI Tools for Economists">
-    <meta property="twitter:description" content="AI collapses the hidden 9× cost of research. Save 10-20% of RA supervision time.">
-    <meta property="twitter:image" content="https://the9x.ac/assets/png/og-image.png">
+    <meta property="twitter:url" content="{{ site.data.settings.meta.url }}/">
+    <meta property="twitter:title" content="{{ site.data.settings.meta.title }}">
+    <meta property="twitter:description" content="{{ site.data.settings.meta.short_description }}">
+    <meta property="twitter:image" content="{{ site.data.settings.meta.og_image }}">
     
-    <link rel="canonical" href="https://the9x.ac/">
-    <link rel="icon" type="image/x-icon" href="assets/png/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/png/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/png/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/png/apple-touch-icon.png">
+    <link rel="canonical" href="{{ site.data.settings.meta.url }}/">
+    <link rel="icon" type="image/x-icon" href="{{ site.data.settings.assets.favicon_ico }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ site.data.settings.assets.favicon_32 }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ site.data.settings.assets.favicon_16 }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.data.settings.assets.apple_touch }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+    <link href="{{ site.data.settings.typography.font_import }}" rel="stylesheet">
     <style>
         :root {
-            --logo-scale: min(48vw, 270px);
-            --tagline-scale: min(80vw, 450px);
-            --form-padding: 3rem;
-            --container-padding: 4rem 2rem;
-            --logo-margin: 4rem;
-            --tagline-margin: 6rem;
-            --form-margin: 6rem;
+            /* Colors */
+            --color-bg: {{ site.data.settings.colors.background }};
+            --color-text-primary: {{ site.data.settings.colors.primary_text }};
+            --color-text-secondary: {{ site.data.settings.colors.secondary_text }};
+            --color-text-muted: {{ site.data.settings.colors.muted_text }};
+            --color-accent: {{ site.data.settings.colors.accent }};
+            --color-accent-hover: {{ site.data.settings.colors.accent_hover }};
+            --color-form-bg: {{ site.data.settings.colors.form_bg }};
+            --color-form-border: {{ site.data.settings.colors.form_border }};
+            --color-input-bg: {{ site.data.settings.colors.input_bg }};
+            --color-focus-shadow: {{ site.data.settings.colors.focus_shadow }};
+            
+            /* Typography */
+            --font-family: {{ site.data.settings.typography.font_family }};
+            --font-weight-regular: {{ site.data.settings.typography.weight_regular }};
+            --font-weight-medium: {{ site.data.settings.typography.weight_medium }};
+            --font-weight-bold: {{ site.data.settings.typography.weight_bold }};
+            
+            /* Responsive Scaling */
+            --logo-scale: {{ site.data.settings.responsive.logo_scale.default }};
+            --tagline-scale: {{ site.data.settings.responsive.tagline_scale.default }};
+            --form-padding: {{ site.data.settings.spacing.form_padding.default }};
+            --container-padding: {{ site.data.settings.spacing.container_padding.default }};
+            --logo-margin: {{ site.data.settings.spacing.margins.logo.default }};
+            --tagline-margin: {{ site.data.settings.spacing.margins.tagline.default }};
+            --form-margin: {{ site.data.settings.spacing.margins.form.default }};
         }
 
         * {
@@ -46,10 +68,10 @@
         }
 
         body {
-            background-color: #1d1d40;
-            color: #d4d2e3;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 700;
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            font-family: var(--font-family);
+            font-weight: var(--font-weight-bold);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -92,8 +114,8 @@
         }
 
         .signup-form {
-            background: rgba(45, 45, 80, 0.3);
-            border: 1px solid rgba(151, 149, 181, 0.2);
+            background: var(--color-form-bg);
+            border: 1px solid var(--color-form-border);
             border-radius: 8px;
             padding: var(--form-padding);
             margin-bottom: var(--form-margin);
@@ -108,32 +130,32 @@
             display: block;
             margin-bottom: 0.75rem;
             font-size: clamp(1.05rem, 2.5vw, 1.15rem);
-            font-weight: 700;
-            color: #c4c2d3;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-muted);
         }
 
         input, textarea {
             width: 100%;
             padding: clamp(0.875rem, 2vw, 1rem);
-            background: #5d5a88;
-            border: 1px solid #5d5a88;
+            background: var(--color-input-bg);
+            border: 1px solid var(--color-input-bg);
             border-radius: 4px;
-            color: #d4d2e3;
+            color: var(--color-text-primary);
             font-family: inherit;
             font-size: clamp(1.05rem, 2.5vw, 1.15rem);
-            font-weight: 600;
+            font-weight: var(--font-weight-medium);
         }
 
         input::placeholder, textarea::placeholder {
-            color: #c4c2d3;
+            color: var(--color-text-muted);
             opacity: 0.9;
-            font-weight: 400;
+            font-weight: var(--font-weight-regular);
         }
 
         input:focus, textarea:focus {
             outline: none;
-            border-color: #e61e25;
-            box-shadow: 0 0 0 2px rgba(230, 30, 37, 0.2);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 2px var(--color-focus-shadow);
         }
 
         textarea {
@@ -142,49 +164,89 @@
         }
 
         .submit-btn {
-            background: #e61e25;
-            color: white;
+            background: var(--color-accent);
+            color: {{ site.data.settings.colors.white }};
             border: none;
             padding: clamp(0.875rem, 2vw, 1rem) clamp(1.75rem, 3vw, 2.25rem);
             border-radius: 4px;
             font-family: inherit;
-            font-weight: 700;
+            font-weight: var(--font-weight-bold);
             font-size: clamp(1.05rem, 2.5vw, 1.15rem);
             cursor: pointer;
             transition: background-color 0.2s;
             min-height: 48px;
             touch-action: manipulation;
+            width: 100%;
         }
 
         .submit-btn:hover {
-            background: #c41e23;
+            background: var(--color-accent-hover);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: var(--font-weight-medium);
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            display: block;
+        }
+
+        .form-message.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            display: block;
         }
 
         .footer {
             font-size: clamp(0.7rem, 1.5vw, 0.8rem);
-            color: #9795b5;
+            color: var(--color-text-secondary);
             text-align: center;
         }
 
         .footer a {
-            color: #9795b5;
+            color: var(--color-text-secondary);
             text-decoration: none;
         }
 
         .footer a:hover {
-            color: #d4d2e3;
+            color: var(--color-text-primary);
+        }
+
+        /* Honeypot field for spam prevention */
+        .ohnohoney {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            height: 0;
+            width: 0;
+            opacity: 0;
+            overflow: hidden;
         }
 
         /* Mobile devices */
         @media (max-width: 480px) {
             :root {
-                --logo-scale: 51vw;
-                --tagline-scale: 85vw;
-                --form-padding: 1.5rem;
-                --container-padding: 2rem 1rem;
-                --logo-margin: 2rem;
-                --tagline-margin: 3rem;
-                --form-margin: 3rem;
+                --logo-scale: {{ site.data.settings.responsive.logo_scale.mobile }};
+                --tagline-scale: {{ site.data.settings.responsive.tagline_scale.mobile }};
+                --form-padding: {{ site.data.settings.spacing.form_padding.mobile }};
+                --container-padding: {{ site.data.settings.spacing.container_padding.mobile }};
+                --logo-margin: {{ site.data.settings.spacing.margins.logo.mobile }};
+                --tagline-margin: {{ site.data.settings.spacing.margins.tagline.mobile }};
+                --form-margin: {{ site.data.settings.spacing.margins.form.mobile }};
             }
 
             .form-group {
@@ -195,42 +257,42 @@
         /* Tablets */
         @media (min-width: 481px) and (max-width: 768px) {
             :root {
-                --logo-scale: 42vw;
-                --tagline-scale: 70vw;
-                --form-padding: 2rem;
-                --container-padding: 3rem 1.5rem;
-                --logo-margin: 3rem;
-                --tagline-margin: 4rem;
-                --form-margin: 4rem;
+                --logo-scale: {{ site.data.settings.responsive.logo_scale.tablet }};
+                --tagline-scale: {{ site.data.settings.responsive.tagline_scale.tablet }};
+                --form-padding: {{ site.data.settings.spacing.form_padding.tablet }};
+                --container-padding: {{ site.data.settings.spacing.container_padding.tablet }};
+                --logo-margin: {{ site.data.settings.spacing.margins.logo.tablet }};
+                --tagline-margin: {{ site.data.settings.spacing.margins.tagline.tablet }};
+                --form-margin: {{ site.data.settings.spacing.margins.form.tablet }};
             }
         }
 
         /* Small desktops */
         @media (min-width: 769px) and (max-width: 1024px) {
             :root {
-                --logo-scale: min(36vw, 240px);
-                --tagline-scale: min(60vw, 400px);
-                --form-padding: 2.5rem;
+                --logo-scale: {{ site.data.settings.responsive.logo_scale.small_desktop }};
+                --tagline-scale: {{ site.data.settings.responsive.tagline_scale.small_desktop }};
+                --form-padding: {{ site.data.settings.spacing.form_padding.small_desktop }};
             }
         }
 
         /* Large desktops */
         @media (min-width: 1025px) {
             :root {
-                --logo-scale: 270px;
-                --tagline-scale: 450px;
+                --logo-scale: {{ site.data.settings.responsive.logo_scale.large_desktop }};
+                --tagline-scale: {{ site.data.settings.responsive.tagline_scale.large_desktop }};
             }
         }
 
         /* Landscape mobile */
         @media (max-height: 600px) and (orientation: landscape) {
             :root {
-                --container-padding: 1rem;
-                --logo-margin: 1.5rem;
-                --tagline-margin: 2rem;
-                --form-margin: 2rem;
-                --logo-scale: min(24vw, 180px);
-                --tagline-scale: min(40vw, 300px);
+                --container-padding: {{ site.data.settings.spacing.container_padding.landscape }};
+                --logo-margin: {{ site.data.settings.spacing.margins.logo.landscape }};
+                --tagline-margin: {{ site.data.settings.spacing.margins.tagline.landscape }};
+                --form-margin: {{ site.data.settings.spacing.margins.form.landscape }};
+                --logo-scale: {{ site.data.settings.responsive.logo_scale.landscape }};
+                --tagline-scale: {{ site.data.settings.responsive.tagline_scale.landscape }};
             }
         }
     </style>
@@ -238,35 +300,136 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="assets/svg/9x-logo.svg" alt="The 9x Academic">
+            <img src="{{ site.data.settings.assets.logo }}" alt="{{ site.data.settings.meta.title }}">
         </div>
         
         <div class="tagline">
-            <img src="assets/svg/tagline.svg" alt="9x the impact of your ideas">
+            <img src="{{ site.data.settings.assets.tagline_svg }}" alt="{{ site.data.settings.meta.tagline }}">
         </div>
 
-        <form class="signup-form" action="https://app.convertkit.com/forms/7449857/subscriptions" method="post" data-sv-form="7449857" data-uid="e4e9d7c1f0">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="fields[first_name]" required>
+        <form class="signup-form" 
+              id="signupForm"
+              action="{{ site.data.settings.kit.form_action }}" 
+              method="post" 
+              data-form-id="{{ site.data.settings.kit.form_id }}"
+              data-api-key="{{ site.data.settings.kit.public_api_key }}"
+              data-api-endpoint="{{ site.data.settings.kit.api_endpoint }}">
+            
+            <!-- Honeypot field for spam prevention -->
+            <div class="ohnohoney" aria-hidden="true">
+                <input type="text" name="website" tabindex="-1" autocomplete="off">
             </div>
             
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email_address" required>
+                <label for="name">{{ site.data.settings.form.fields.name.label }}</label>
+                <input type="{{ site.data.settings.form.fields.name.type }}" 
+                       id="name" 
+                       name="{{ site.data.settings.form.fields.name.field_name }}" 
+                       {% if site.data.settings.form.fields.name.required %}required{% endif %}>
             </div>
             
             <div class="form-group">
-                <label for="friction">What frictions slow down executing your ideas?</label>
-                <textarea id="friction" name="fields[friction]" placeholder="Documentation overhead, coordination delays, technical setup..."></textarea>
+                <label for="email">{{ site.data.settings.form.fields.email.label }}</label>
+                <input type="{{ site.data.settings.form.fields.email.type }}" 
+                       id="email" 
+                       name="{{ site.data.settings.form.fields.email.field_name }}" 
+                       {% if site.data.settings.form.fields.email.required %}required{% endif %}>
             </div>
             
-            <button type="submit" class="submit-btn">Get Early Access</button>
+            <div class="form-group">
+                <label for="friction">{{ site.data.settings.form.fields.friction.label }}</label>
+                <textarea id="friction" 
+                          name="{{ site.data.settings.form.fields.friction.field_name }}" 
+                          placeholder="{{ site.data.settings.form.fields.friction.placeholder }}"
+                          {% if site.data.settings.form.fields.friction.required %}required{% endif %}></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submitBtn">
+                {{ site.data.settings.form.submit_text }}
+            </button>
+            
+            <div class="form-message" id="formMessage"></div>
         </form>
     </div>
 
     <footer class="footer">
-        <p>&copy; 2024 <a href="https://koren.dev" target="_blank" rel="noopener">Coded Thinking OÜ</a></p>
+        <p>&copy; {{ site.data.settings.company.year }} <a href="{{ site.data.settings.company.url }}" target="_blank" rel="noopener">{{ site.data.settings.company.name }}</a></p>
     </footer>
+
+    <script>
+    (function() {
+        const form = document.getElementById('signupForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+        const originalBtnText = submitBtn.textContent;
+        
+        // Only enhance if we have API key configured
+        const apiKey = form.dataset.apiKey;
+        if (!apiKey || apiKey === 'YOUR_PUBLIC_KEY_HERE') {
+            console.log('Kit.com API key not configured, using standard form submission');
+            return;
+        }
+        
+        form.addEventListener('submit', async function(e) {
+            // Check honeypot
+            const honeypot = form.querySelector('input[name="website"]');
+            if (honeypot && honeypot.value) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // If JavaScript enhancement available, prevent default and use API
+            e.preventDefault();
+            
+            // Disable form during submission
+            submitBtn.disabled = true;
+            submitBtn.textContent = '{{ site.data.settings.form.submitting_text }}';
+            formMessage.className = 'form-message';
+            
+            try {
+                const formData = new FormData(form);
+                const email = formData.get('{{ site.data.settings.form.fields.email.field_name }}');
+                const firstName = formData.get('{{ site.data.settings.form.fields.name.field_name }}');
+                const friction = formData.get('{{ site.data.settings.form.fields.friction.field_name }}');
+                
+                const response = await fetch(`${form.dataset.apiEndpoint}/${form.dataset.formId}/subscribe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        api_key: apiKey,
+                        email: email,
+                        first_name: firstName,
+                        fields: {
+                            friction: friction
+                        }
+                    })
+                });
+                
+                if (response.ok) {
+                    // Success
+                    formMessage.textContent = '{{ site.data.settings.form.success_message }}';
+                    formMessage.className = 'form-message success';
+                    form.reset();
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                // Error - fall back to standard form submission
+                console.error('API submission failed:', error);
+                formMessage.textContent = '{{ site.data.settings.form.error_message }}';
+                formMessage.className = 'form-message error';
+                
+                // Optionally, resubmit using standard form action as fallback
+                // form.submit();
+            } finally {
+                // Re-enable form
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
+        });
+    })();
+    </script>
 </body>
 </html>

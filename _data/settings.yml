@@ -1,0 +1,133 @@
+# Kit.com Integration
+kit:
+  form_id: "7449857"
+  public_api_key: "YOUR_PUBLIC_KEY_HERE"  # Replace with actual public key
+  form_action: "https://app.convertkit.com/forms/7449857/subscriptions"
+  api_endpoint: "https://api.convertkit.com/v3/forms"
+
+# Brand Colors
+colors:
+  background: "#1d1d40"
+  primary_text: "#d4d2e3"
+  secondary_text: "#9795b5"
+  muted_text: "#c4c2d3"
+  accent: "#e61e25"
+  accent_hover: "#c41e23"
+  white: "#ffffff"
+  form_bg: "rgba(45, 45, 80, 0.3)"
+  form_border: "rgba(151, 149, 181, 0.2)"
+  input_bg: "#5d5a88"
+  focus_shadow: "rgba(230, 30, 37, 0.2)"
+
+# Typography
+typography:
+  font_family: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+  font_import: "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+  weight_regular: 400
+  weight_medium: 600
+  weight_bold: 700
+
+# Site Metadata
+meta:
+  title: "The 9x Academic - AI Tools for Economists"
+  tagline: "9x the impact of your ideas"
+  description: "AI collapses the hidden 9× cost of research. Advanced AI tools for economists and academics to handle documentation, integration, and coordination overhead."
+  short_description: "AI collapses the hidden 9× cost of research. Save 10-20% of RA supervision time."
+  url: "https://the9x.ac"
+  og_image: "https://the9x.ac/assets/png/og-image.png"
+  favicon_base: "/assets/png/"
+
+# Form Configuration
+form:
+  submit_text: "Get Early Access"
+  submitting_text: "Submitting..."
+  success_message: "Thanks! Check your email for confirmation."
+  error_message: "Something went wrong. Please try again."
+  
+  fields:
+    name:
+      label: "Name"
+      type: "text"
+      field_name: "fields[first_name]"
+      required: true
+      placeholder: ""
+    
+    email:
+      label: "Email"
+      type: "email"
+      field_name: "email_address"
+      required: true
+      placeholder: ""
+    
+    friction:
+      label: "What frictions slow down executing your ideas?"
+      type: "textarea"
+      field_name: "fields[friction]"
+      required: false
+      placeholder: "Documentation overhead, coordination delays, technical setup..."
+
+# Company Information
+company:
+  name: "Coded Thinking OÜ"
+  url: "https://koren.dev"
+  year: 2024
+
+# Asset Paths
+assets:
+  logo: "/assets/svg/9x-logo.svg"
+  tagline_svg: "/assets/svg/tagline.svg"
+  favicon_ico: "/assets/png/favicon.ico"
+  favicon_32: "/assets/png/favicon-32x32.png"
+  favicon_16: "/assets/png/favicon-16x16.png"
+  apple_touch: "/assets/png/apple-touch-icon.png"
+
+# Responsive Scaling
+responsive:
+  logo_scale:
+    default: "min(48vw, 270px)"
+    mobile: "51vw"
+    tablet: "42vw"
+    small_desktop: "min(36vw, 240px)"
+    large_desktop: "270px"
+    landscape: "min(24vw, 180px)"
+  
+  tagline_scale:
+    default: "min(80vw, 450px)"
+    mobile: "85vw"
+    tablet: "70vw"
+    small_desktop: "min(60vw, 400px)"
+    large_desktop: "450px"
+    landscape: "min(40vw, 300px)"
+
+# Spacing
+spacing:
+  form_padding:
+    default: "3rem"
+    mobile: "1.5rem"
+    tablet: "2rem"
+    small_desktop: "2.5rem"
+  
+  container_padding:
+    default: "4rem 2rem"
+    mobile: "2rem 1rem"
+    tablet: "3rem 1.5rem"
+    landscape: "1rem"
+  
+  margins:
+    logo:
+      default: "4rem"
+      mobile: "2rem"
+      tablet: "3rem"
+      landscape: "1.5rem"
+    
+    tagline:
+      default: "6rem"
+      mobile: "3rem"
+      tablet: "4rem"
+      landscape: "2rem"
+    
+    form:
+      default: "6rem"
+      mobile: "3rem"
+      tablet: "4rem"
+      landscape: "2rem"
