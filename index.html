@@ -3,15 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The 9x Academic</title>
+    <title>The 9x Academic - AI Tools for Economists</title>
+    <meta name="description" content="AI collapses the hidden 9× cost of research. Advanced AI tools for economists and academics to handle documentation, integration, and coordination overhead.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://the9x.ac/">
+    <meta property="og:title" content="The 9x Academic - AI Tools for Economists">
+    <meta property="og:description" content="AI collapses the hidden 9× cost of research. Save 10-20% of RA supervision time.">
+    <meta property="og:image" content="https://the9x.ac/assets/png/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://the9x.ac/">
+    <meta property="twitter:title" content="The 9x Academic - AI Tools for Economists">
+    <meta property="twitter:description" content="AI collapses the hidden 9× cost of research. Save 10-20% of RA supervision time.">
+    <meta property="twitter:image" content="https://the9x.ac/assets/png/og-image.png">
+    
+    <link rel="canonical" href="https://the9x.ac/">
     <link rel="icon" type="image/x-icon" href="assets/png/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/png/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/png/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/png/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --logo-scale: min(48vw, 270px);
+            --tagline-scale: min(80vw, 450px);
+            --form-padding: 3rem;
+            --container-padding: 4rem 2rem;
+            --logo-margin: 4rem;
+            --tagline-margin: 6rem;
+            --form-margin: 6rem;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +55,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 4rem 2rem;
+            padding: var(--container-padding);
+            overflow-x: hidden;
         }
 
         .container {
@@ -38,29 +66,37 @@
         }
 
         .logo {
-            margin-bottom: 4rem;
+            margin-bottom: var(--logo-margin);
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .logo img {
-            width: 18rem;
+            width: var(--logo-scale);
+            max-width: 100%;
+            height: auto;
         }
 
-
-
         .tagline {
-            margin-bottom: 6rem;
+            margin-bottom: var(--tagline-margin);
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .tagline img {
-            width: 28rem;
+            width: var(--tagline-scale);
+            max-width: 100%;
+            height: auto;
         }
 
         .signup-form {
             background: rgba(45, 45, 80, 0.3);
             border: 1px solid rgba(151, 149, 181, 0.2);
             border-radius: 8px;
-            padding: 3rem;
-            margin-bottom: 6rem;
+            padding: var(--form-padding);
+            margin-bottom: var(--form-margin);
         }
 
         .form-group {
@@ -71,21 +107,27 @@
         label {
             display: block;
             margin-bottom: 0.75rem;
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: clamp(1.05rem, 2.5vw, 1.15rem);
+            font-weight: 700;
             color: #c4c2d3;
         }
 
         input, textarea {
             width: 100%;
-            padding: 1rem;
+            padding: clamp(0.875rem, 2vw, 1rem);
             background: #5d5a88;
             border: 1px solid #5d5a88;
             border-radius: 4px;
             color: #d4d2e3;
             font-family: inherit;
-            font-size: 1.1rem;
+            font-size: clamp(1.05rem, 2.5vw, 1.15rem);
             font-weight: 600;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #c4c2d3;
+            opacity: 0.9;
+            font-weight: 400;
         }
 
         input:focus, textarea:focus {
@@ -103,13 +145,15 @@
             background: #e61e25;
             color: white;
             border: none;
-            padding: 0.875rem 2rem;
+            padding: clamp(0.875rem, 2vw, 1rem) clamp(1.75rem, 3vw, 2.25rem);
             border-radius: 4px;
             font-family: inherit;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: clamp(1.05rem, 2.5vw, 1.15rem);
             cursor: pointer;
             transition: background-color 0.2s;
+            min-height: 48px;
+            touch-action: manipulation;
         }
 
         .submit-btn:hover {
@@ -117,7 +161,7 @@
         }
 
         .footer {
-            font-size: 0.8rem;
+            font-size: clamp(0.7rem, 1.5vw, 0.8rem);
             color: #9795b5;
             text-align: center;
         }
@@ -131,21 +175,62 @@
             color: #d4d2e3;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 2rem 1rem;
+        /* Mobile devices */
+        @media (max-width: 480px) {
+            :root {
+                --logo-scale: 51vw;
+                --tagline-scale: 85vw;
+                --form-padding: 1.5rem;
+                --container-padding: 2rem 1rem;
+                --logo-margin: 2rem;
+                --tagline-margin: 3rem;
+                --form-margin: 3rem;
             }
-            
-            .logo {
-                margin-bottom: 3rem;
+
+            .form-group {
+                margin-bottom: 1.5rem;
             }
-            
-            .tagline {
-                margin-bottom: 4rem;
+        }
+
+        /* Tablets */
+        @media (min-width: 481px) and (max-width: 768px) {
+            :root {
+                --logo-scale: 42vw;
+                --tagline-scale: 70vw;
+                --form-padding: 2rem;
+                --container-padding: 3rem 1.5rem;
+                --logo-margin: 3rem;
+                --tagline-margin: 4rem;
+                --form-margin: 4rem;
             }
-            
-            .signup-form {
-                padding: 2rem;
+        }
+
+        /* Small desktops */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            :root {
+                --logo-scale: min(36vw, 240px);
+                --tagline-scale: min(60vw, 400px);
+                --form-padding: 2.5rem;
+            }
+        }
+
+        /* Large desktops */
+        @media (min-width: 1025px) {
+            :root {
+                --logo-scale: 270px;
+                --tagline-scale: 450px;
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            :root {
+                --container-padding: 1rem;
+                --logo-margin: 1.5rem;
+                --tagline-margin: 2rem;
+                --form-margin: 2rem;
+                --logo-scale: min(24vw, 180px);
+                --tagline-scale: min(40vw, 300px);
             }
         }
     </style>
@@ -160,7 +245,7 @@
             <img src="assets/svg/tagline.svg" alt="9x the impact of your ideas">
         </div>
 
-        <form class="signup-form" action="https://app.convertkit.com/forms/YOUR_FORM_ID/subscriptions" method="post">
+        <form class="signup-form" action="https://app.convertkit.com/forms/7449857/subscriptions" method="post" data-sv-form="7449857" data-uid="e4e9d7c1f0">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="fields[first_name]" required>
@@ -181,7 +266,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; 2024 <a href="https://koren.dev" target="_blank">Coded Thinking OÜ</a></p>
+        <p>&copy; 2024 <a href="https://koren.dev" target="_blank" rel="noopener">Coded Thinking OÜ</a></p>
     </footer>
 </body>
 </html>
