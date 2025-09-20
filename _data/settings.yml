@@ -1,8 +1,8 @@
 # Kit.com Integration
 kit:
-  form_id: "7449857"
-  public_api_key: "YOUR_PUBLIC_KEY_HERE"  # Replace with actual public key
-  form_action: "https://app.convertkit.com/forms/7449857/subscriptions"
+  form_id: "8582527"
+  public_api_key: "uSBdj5HAjrkdPkjIVmv1qg"  # Replace with actual public key
+  form_action: "https://app.convertkit.com/forms/8582527/subscriptions"
   api_endpoint: "https://api.convertkit.com/v3/forms"
 
 # Brand Colors
@@ -70,7 +70,7 @@ form:
 company:
   name: "Coded Thinking OÜ"
   url: "https://koren.dev"
-  year: 2024
+  year: 2025
 
 # Asset Paths
 assets:
