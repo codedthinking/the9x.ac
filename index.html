@@ -309,11 +309,8 @@ layout: null
 
         <form class="signup-form" 
               id="signupForm"
-              action="{{ site.data.settings.kit.form_action }}" 
-              method="post" 
-              data-form-id="{{ site.data.settings.kit.form_id }}"
-              data-api-key="{{ site.data.settings.kit.public_api_key }}"
-              data-api-endpoint="{{ site.data.settings.kit.api_endpoint }}">
+              data-form-id="{{ site.data.settings.loops.form_id }}"
+              data-form-endpoint="{{ site.data.settings.loops.form_endpoint }}">
             
             <!-- Honeypot field for spam prevention -->
             <div class="ohnohoney" aria-hidden="true">
@@ -363,10 +360,10 @@ layout: null
         const formMessage = document.getElementById('formMessage');
         const originalBtnText = submitBtn.textContent;
         
-        // Only enhance if we have API key configured
-        const apiKey = form.dataset.apiKey;
-        if (!apiKey || apiKey === 'YOUR_PUBLIC_KEY_HERE') {
-            console.log('Kit.com API key not configured, using standard form submission');
+        // Only enhance if we have Form ID configured
+        const formId = form.dataset.formId;
+        if (!formId) {
+            console.log('Loops.so Form ID not configured');
             return;
         }
         
@@ -378,7 +375,7 @@ layout: null
                 return false;
             }
             
-            // If JavaScript enhancement available, prevent default and use API
+            // Prevent default and use Loops.so form endpoint
             e.preventDefault();
             
             // Disable form during submission
@@ -387,42 +384,43 @@ layout: null
             formMessage.className = 'form-message';
             
             try {
-                const formData = new FormData(form);
-                const email = formData.get('{{ site.data.settings.form.fields.email.field_name }}');
-                const firstName = formData.get('{{ site.data.settings.form.fields.name.field_name }}');
-                const friction = formData.get('{{ site.data.settings.form.fields.friction.field_name }}');
+                const email = form.querySelector('[name="{{ site.data.settings.form.fields.email.field_name }}"]').value;
+                const firstName = form.querySelector('[name="{{ site.data.settings.form.fields.name.field_name }}"]').value;
+                const friction = form.querySelector('[name="{{ site.data.settings.form.fields.friction.field_name }}"]').value;
                 
-                const response = await fetch(`${form.dataset.apiEndpoint}/${form.dataset.formId}/subscribe`, {
+                // Loops.so form endpoint - build URL encoded params
+                const params = new URLSearchParams();
+                params.append('email', email);
+                if (firstName) params.append('firstName', firstName);
+                params.append('userGroup', 'the9x.ac');
+                params.append('source', 'https://the9x.ac');
+                
+                // Add custom fields
+                if (friction) params.append('frictions', friction);
+                
+                const response = await fetch(`${form.dataset.formEndpoint}/${formId}`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: JSON.stringify({
-                        api_key: apiKey,
-                        email: email,
-                        first_name: firstName,
-                        fields: {
-                            friction: friction
-                        }
-                    })
+                    body: params.toString()
                 });
                 
-                if (response.ok) {
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
                     // Success
                     formMessage.textContent = '{{ site.data.settings.form.success_message }}';
                     formMessage.className = 'form-message success';
                     form.reset();
                 } else {
-                    throw new Error('Submission failed');
+                    throw new Error(data.message || 'Submission failed');
                 }
             } catch (error) {
-                // Error - fall back to standard form submission
+                // Error
                 console.error('API submission failed:', error);
                 formMessage.textContent = '{{ site.data.settings.form.error_message }}';
                 formMessage.className = 'form-message error';
-                
-                // Optionally, resubmit using standard form action as fallback
-                // form.submit();
             } finally {
                 // Re-enable form
                 submitBtn.disabled = false;

@@ -1,9 +1,7 @@
-# Kit.com Integration
-kit:
-  form_id: "8582527"
-  public_api_key: "uSBdj5HAjrkdPkjIVmv1qg"  # Replace with actual public key
-  form_action: "https://app.convertkit.com/forms/8582527/subscriptions"
-  api_endpoint: "https://api.convertkit.com/v3/forms"
+# Loops.so Integration
+loops:
+  form_id: "cmhubr5b21wzczx0i46eeyfo9"  # Your Loops.so Form ID
+  form_endpoint: "https://app.loops.so/api/newsletter-form"
 
 # Brand Colors
 colors:
@@ -48,21 +46,21 @@ form:
     name:
       label: "Name"
       type: "text"
-      field_name: "fields[first_name]"
+      field_name: "firstName"
       required: true
       placeholder: ""
     
     email:
       label: "Email"
       type: "email"
-      field_name: "email_address"
+      field_name: "email"
       required: true
       placeholder: ""
     
     friction:
       label: "What frictions slow down executing your ideas?"
       type: "textarea"
-      field_name: "fields[friction]"
+      field_name: "friction"
       required: false
       placeholder: "Documentation overhead, coordination delays, technical setup..."
 
