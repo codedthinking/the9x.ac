@@ -1,6 +1,7 @@
 # Loops.so Integration
 loops:
   form_id: "cmhubr5b21wzczx0i46eeyfo9"  # Your Loops.so Form ID
+  mailing_list_id: "cmhugeduy0akn0i1g27ct9wb0"  # Mailing list to add contacts to
   form_endpoint: "https://app.loops.so/api/newsletter-form"
 
 # Brand Colors

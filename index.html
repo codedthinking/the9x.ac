@@ -310,6 +310,7 @@ layout: null
         <form class="signup-form" 
               id="signupForm"
               data-form-id="{{ site.data.settings.loops.form_id }}"
+              data-mailing-list-id="{{ site.data.settings.loops.mailing_list_id }}"
               data-form-endpoint="{{ site.data.settings.loops.form_endpoint }}">
             
             <!-- Honeypot field for spam prevention -->
@@ -362,6 +363,7 @@ layout: null
         
         // Only enhance if we have Form ID configured
         const formId = form.dataset.formId;
+        const mailingListId = form.dataset.mailingListId;
         if (!formId) {
             console.log('Loops.so Form ID not configured');
             return;
@@ -394,6 +396,9 @@ layout: null
                 if (firstName) params.append('firstName', firstName);
                 params.append('userGroup', 'the9x.ac');
                 params.append('source', 'https://the9x.ac');
+                
+                // Add to mailing list - use comma-separated list of IDs for form endpoint
+                if (mailingListId) params.append('mailingLists', mailingListId);
                 
                 // Add custom fields
                 if (friction) params.append('frictions', friction);
