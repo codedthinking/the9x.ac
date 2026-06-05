@@ -1,0 +1,907 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KTI Workshop Questionnaire - {{ site.data.settings.meta.title }}</title>
+    <meta name="description" content="AI Workshop Questionnaire for KTI One-Day Workshop">
+
+    <link rel="icon" type="image/x-icon" href="{{ site.data.settings.assets.favicon_ico }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ site.data.settings.assets.favicon_32 }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ site.data.settings.assets.favicon_16 }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.data.settings.assets.apple_touch }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="{{ site.data.settings.typography.font_import }}" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: {{ site.data.settings.colors.background }};
+            --color-text-primary: {{ site.data.settings.colors.primary_text }};
+            --color-text-secondary: {{ site.data.settings.colors.secondary_text }};
+            --color-text-muted: {{ site.data.settings.colors.muted_text }};
+            --color-accent: {{ site.data.settings.colors.accent }};
+            --color-accent-hover: {{ site.data.settings.colors.accent_hover }};
+            --color-form-bg: {{ site.data.settings.colors.form_bg }};
+            --color-form-border: {{ site.data.settings.colors.form_border }};
+            --color-input-bg: {{ site.data.settings.colors.input_bg }};
+            --color-focus-shadow: {{ site.data.settings.colors.focus_shadow }};
+            --font-family: {{ site.data.settings.typography.font_family }};
+            --font-weight-regular: {{ site.data.settings.typography.weight_regular }};
+            --font-weight-medium: {{ site.data.settings.typography.weight_medium }};
+            --font-weight-bold: {{ site.data.settings.typography.weight_bold }};
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            font-family: var(--font-family);
+            font-weight: var(--font-weight-regular);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 640px;
+            width: 100%;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-header .logo img {
+            width: min(36vw, 180px);
+            height: auto;
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            color: var(--color-text-secondary);
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--color-form-border);
+            transition: background 0.3s;
+        }
+
+        .progress-step.active {
+            background: var(--color-accent);
+        }
+
+        .progress-step.completed {
+            background: var(--color-text-secondary);
+        }
+
+        /* Form card */
+        .form-card {
+            background: var(--color-form-bg);
+            border: 1px solid var(--color-form-border);
+            border-radius: 8px;
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-page { display: none; }
+        .form-page.active { display: block; }
+
+        .section-title {
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
+            margin-bottom: 1.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--color-form-border);
+        }
+
+        /* Form fields */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label, .field-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: clamp(0.9rem, 2.2vw, 1rem);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-muted);
+        }
+
+        .required::after {
+            content: " *";
+            color: var(--color-accent);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: clamp(0.75rem, 2vw, 0.875rem);
+            background: var(--color-input-bg);
+            border: 1px solid var(--color-input-bg);
+            border-radius: 4px;
+            color: var(--color-text-primary);
+            font-family: inherit;
+            font-size: clamp(0.9rem, 2.2vw, 1rem);
+            font-weight: var(--font-weight-regular);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--color-text-muted);
+            opacity: 0.7;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 2px var(--color-focus-shadow);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Radio buttons and checkboxes */
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            padding: 0.625rem 0.875rem;
+            background: var(--color-input-bg);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .option-item:hover {
+            background: rgba(93, 90, 136, 0.85);
+        }
+
+        .option-item input[type="radio"],
+        .option-item input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-text-secondary);
+            background: transparent;
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .option-item input[type="radio"] {
+            border-radius: 50%;
+        }
+
+        .option-item input[type="checkbox"] {
+            border-radius: 3px;
+        }
+
+        .option-item input[type="radio"]:checked {
+            border-color: var(--color-accent);
+        }
+
+        .option-item input[type="radio"]:checked::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-accent);
+        }
+
+        .option-item input[type="checkbox"]:checked {
+            border-color: var(--color-accent);
+            background: var(--color-accent);
+        }
+
+        .option-item input[type="checkbox"]:checked::after {
+            content: "";
+            position: absolute;
+            top: 1px;
+            left: 4px;
+            width: 5px;
+            height: 9px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .option-item span {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            color: var(--color-text-primary);
+        }
+
+        /* "Other" inline input */
+        .other-input {
+            flex: 1;
+            padding: 0.25rem 0.5rem;
+            background: rgba(29, 29, 64, 0.5);
+            border: 1px solid var(--color-form-border);
+            border-radius: 3px;
+            color: var(--color-text-primary);
+            font-family: inherit;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            min-width: 0;
+        }
+
+        .other-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+
+        /* Navigation buttons */
+        .form-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: clamp(0.75rem, 2vw, 0.875rem);
+            border-radius: 4px;
+            font-family: inherit;
+            font-weight: var(--font-weight-bold);
+            font-size: clamp(0.9rem, 2.2vw, 1rem);
+            cursor: pointer;
+            transition: background-color 0.2s, opacity 0.2s;
+            min-height: 48px;
+            touch-action: manipulation;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent-hover);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: var(--color-input-bg);
+            color: var(--color-text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(93, 90, 136, 0.85);
+        }
+
+        /* Success / Error messages */
+        .form-message {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: var(--font-weight-medium);
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            display: block;
+        }
+
+        .form-message.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            display: block;
+        }
+
+        /* Validation */
+        .form-group.invalid input,
+        .form-group.invalid textarea {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+        }
+
+        .validation-msg {
+            font-size: 0.8rem;
+            color: #ef4444;
+            margin-top: 0.35rem;
+            display: none;
+        }
+
+        .form-group.invalid .validation-msg {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 2rem;
+            font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+            color: var(--color-text-secondary);
+            text-align: center;
+        }
+
+        .footer a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--color-text-primary);
+        }
+
+        /* Honeypot */
+        .ohnohoney {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            height: 0;
+            width: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        /* Page counter */
+        .page-counter {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 1.25rem 0.75rem; }
+            .form-card { padding: 1.25rem; }
+            .form-group { margin-bottom: 1.25rem; }
+            .option-item { padding: 0.5rem 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <div class="logo">
+                <a href="/"><img src="{{ site.data.settings.assets.logo }}" alt="{{ site.data.settings.meta.title }}"></a>
+            </div>
+            <h1>AI Workshop Questionnaire</h1>
+            <p>KTI One-Day Workshop</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-step active" data-step="0"></div>
+            <div class="progress-step" data-step="1"></div>
+            <div class="progress-step" data-step="2"></div>
+            <div class="progress-step" data-step="3"></div>
+        </div>
+
+        <form id="workshopForm" novalidate>
+            <!-- Honeypot -->
+            <div class="ohnohoney" aria-hidden="true">
+                <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- PAGE 1: Personal Information & Attendance -->
+            <div class="form-page active" data-page="0">
+                <div class="form-card">
+                    <div class="section-title">Personal Information</div>
+
+                    <div class="form-group">
+                        <label for="name" class="required">Name</label>
+                        <input type="text" id="name" name="firstName" required>
+                        <div class="validation-msg">Please enter your name.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="required">Email</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="validation-msg">Please enter a valid email address.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="affiliation" class="required">Affiliation</label>
+                        <input type="text" id="affiliation" name="affiliation" required>
+                        <div class="validation-msg">Please enter your affiliation.</div>
+                    </div>
+                </div>
+
+                <div class="form-card" style="margin-top: 1rem;">
+                    <div class="section-title">Attendance</div>
+
+                    <div class="form-group">
+                        <div class="field-label">Will you attend the whole day?</div>
+                        <div class="options-group">
+                            <label class="option-item">
+                                <input type="radio" name="attendance" value="Yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="option-item">
+                                <input type="radio" name="attendance" value="No">
+                                <span>No</span>
+                            </label>
+                            <label class="option-item">
+                                <input type="radio" name="attendance" value="Unsure">
+                                <span>Unsure</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-nav" style="margin-top: 1.5rem;">
+                    <button type="button" class="btn btn-primary btn-next">Next</button>
+                </div>
+            </div>
+
+            <!-- PAGE 2: Technical Background -->
+            <div class="form-page" data-page="1">
+                <div class="form-card">
+                    <div class="section-title">Technical Background</div>
+
+                    <div class="form-group">
+                        <div class="field-label">Which tools do you use regularly for research or collaboration?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" name="tools" value="Dropbox"><span>Dropbox</span></label>
+                            <label class="option-item"><input type="checkbox" name="tools" value="Git / GitHub"><span>Git / GitHub</span></label>
+                            <label class="option-item"><input type="checkbox" name="tools" value="Overleaf"><span>Overleaf</span></label>
+                            <label class="option-item"><input type="checkbox" name="tools" value="Microsoft Office"><span>Microsoft Office</span></label>
+                            <label class="option-item">
+                                <input type="checkbox" name="tools" value="Other">
+                                <span>Other:</span>
+                                <input type="text" class="other-input" data-for="tools" placeholder="specify">
+                            </label>
+                            <label class="option-item"><input type="checkbox" name="tools" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-label">Which code editor or IDE do you use?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" name="editors" value="VS Code"><span>VS Code</span></label>
+                            <label class="option-item"><input type="checkbox" name="editors" value="Cursor"><span>Cursor</span></label>
+                            <label class="option-item"><input type="checkbox" name="editors" value="PyCharm"><span>PyCharm</span></label>
+                            <label class="option-item"><input type="checkbox" name="editors" value="RStudio"><span>RStudio</span></label>
+                            <label class="option-item"><input type="checkbox" name="editors" value="JupyterLab / Jupyter Notebook"><span>JupyterLab / Jupyter Notebook</span></label>
+                            <label class="option-item"><input type="checkbox" name="editors" value="Sublime Text"><span>Sublime Text</span></label>
+                            <label class="option-item">
+                                <input type="checkbox" name="editors" value="Other">
+                                <span>Other:</span>
+                                <input type="text" class="other-input" data-for="editors" placeholder="specify">
+                            </label>
+                            <label class="option-item"><input type="checkbox" name="editors" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-label">Which programming languages or statistical software do you use?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" name="languages" value="Python"><span>Python</span></label>
+                            <label class="option-item"><input type="checkbox" name="languages" value="R"><span>R</span></label>
+                            <label class="option-item"><input type="checkbox" name="languages" value="Stata"><span>Stata</span></label>
+                            <label class="option-item"><input type="checkbox" name="languages" value="MATLAB"><span>MATLAB</span></label>
+                            <label class="option-item"><input type="checkbox" name="languages" value="Julia"><span>Julia</span></label>
+                            <label class="option-item"><input type="checkbox" name="languages" value="SQL"><span>SQL</span></label>
+                            <label class="option-item">
+                                <input type="checkbox" name="languages" value="Other">
+                                <span>Other:</span>
+                                <input type="text" class="other-input" data-for="languages" placeholder="specify">
+                            </label>
+                            <label class="option-item"><input type="checkbox" name="languages" value="None"><span>None</span></label>
+                            <label class="option-item"><input type="checkbox" name="languages" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-label">How comfortable are you with the command line (shell/terminal)?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="radio" name="commandLine" value="Very comfortable"><span>Very comfortable</span></label>
+                            <label class="option-item"><input type="radio" name="commandLine" value="Somewhat comfortable"><span>Somewhat comfortable</span></label>
+                            <label class="option-item"><input type="radio" name="commandLine" value="Basic commands only"><span>Basic commands only</span></label>
+                            <label class="option-item"><input type="radio" name="commandLine" value="Not comfortable"><span>Not comfortable</span></label>
+                            <label class="option-item"><input type="radio" name="commandLine" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-label">How familiar are you with cybersecurity and data protection practices?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="radio" name="cybersecurity" value="Very familiar"><span>Very familiar</span></label>
+                            <label class="option-item"><input type="radio" name="cybersecurity" value="Somewhat familiar"><span>Somewhat familiar</span></label>
+                            <label class="option-item"><input type="radio" name="cybersecurity" value="Basic awareness only"><span>Basic awareness only</span></label>
+                            <label class="option-item"><input type="radio" name="cybersecurity" value="Not familiar"><span>Not familiar</span></label>
+                            <label class="option-item"><input type="radio" name="cybersecurity" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-nav" style="margin-top: 1.5rem;">
+                    <button type="button" class="btn btn-secondary btn-prev">Back</button>
+                    <button type="button" class="btn btn-primary btn-next">Next</button>
+                </div>
+            </div>
+
+            <!-- PAGE 3: AI Experience -->
+            <div class="form-page" data-page="2">
+                <div class="form-card">
+                    <div class="section-title">AI Experience</div>
+
+                    <div class="form-group">
+                        <div class="field-label">Which large language models (LLMs) have you used?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" name="llms" value="GPT (OpenAI)"><span>GPT (OpenAI)</span></label>
+                            <label class="option-item"><input type="checkbox" name="llms" value="Claude (Anthropic)"><span>Claude (Anthropic)</span></label>
+                            <label class="option-item"><input type="checkbox" name="llms" value="Gemini (Google)"><span>Gemini (Google)</span></label>
+                            <label class="option-item"><input type="checkbox" name="llms" value="DeepSeek"><span>DeepSeek</span></label>
+                            <label class="option-item"><input type="checkbox" name="llms" value="Llama (Meta)"><span>Llama (Meta)</span></label>
+                            <label class="option-item">
+                                <input type="checkbox" name="llms" value="Other">
+                                <span>Other:</span>
+                                <input type="text" class="other-input" data-for="llms" placeholder="specify">
+                            </label>
+                            <label class="option-item"><input type="checkbox" name="llms" value="No experience"><span>No experience</span></label>
+                            <label class="option-item"><input type="checkbox" name="llms" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-label">Which AI-powered tools or coding assistants have you used?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" name="aiTools" value="Copilot (GitHub / Microsoft)"><span>Copilot (GitHub / Microsoft)</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiTools" value="ChatGPT"><span>ChatGPT</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiTools" value="Claude Code"><span>Claude Code</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiTools" value="Cursor"><span>Cursor</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiTools" value="Warp"><span>Warp</span></label>
+                            <label class="option-item">
+                                <input type="checkbox" name="aiTools" value="Other">
+                                <span>Other:</span>
+                                <input type="text" class="other-input" data-for="aiTools" placeholder="specify">
+                            </label>
+                            <label class="option-item"><input type="checkbox" name="aiTools" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-label">Do you know the difference between a chat interface and an AI agent?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="radio" name="chatVsAgent" value="Yes, clearly"><span>Yes, clearly</span></label>
+                            <label class="option-item"><input type="radio" name="chatVsAgent" value="Roughly"><span>Roughly</span></label>
+                            <label class="option-item"><input type="radio" name="chatVsAgent" value="Not really"><span>Not really</span></label>
+                            <label class="option-item"><input type="radio" name="chatVsAgent" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-label">What have you used AI for in your research?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="Literature search and review"><span>Literature search and review</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="Writing or editing text"><span>Writing or editing text</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="Translation"><span>Translation</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="Data cleaning and preprocessing"><span>Data cleaning and preprocessing</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="Statistical analysis"><span>Statistical analysis</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="Writing or debugging code"><span>Writing or debugging code</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="Creating visualizations"><span>Creating visualizations</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="Formatting references"><span>Formatting references</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="None yet"><span>None yet</span></label>
+                            <label class="option-item">
+                                <input type="checkbox" name="aiResearchUse" value="Other">
+                                <span>Other:</span>
+                                <input type="text" class="other-input" data-for="aiResearchUse" placeholder="specify">
+                            </label>
+                            <label class="option-item"><input type="checkbox" name="aiResearchUse" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-nav" style="margin-top: 1.5rem;">
+                    <button type="button" class="btn btn-secondary btn-prev">Back</button>
+                    <button type="button" class="btn btn-primary btn-next">Next</button>
+                </div>
+            </div>
+
+            <!-- PAGE 4: Goals and Skills -->
+            <div class="form-page" data-page="3">
+                <div class="form-card">
+                    <div class="section-title">Goals and Skills</div>
+
+                    <div class="form-group">
+                        <div class="field-label">What do you want to use AI for going forward?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" name="aiFutureUse" value="Writing or reviewing code"><span>Writing or reviewing code</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiFutureUse" value="Data extraction or web scraping"><span>Data extraction or web scraping</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiFutureUse" value="Parsing documents"><span>Parsing documents</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiFutureUse" value="Automating repetitive tasks"><span>Automating repetitive tasks (e.g. form filling)</span></label>
+                            <label class="option-item"><input type="checkbox" name="aiFutureUse" value="Scientific writing"><span>Scientific writing</span></label>
+                            <label class="option-item">
+                                <input type="checkbox" name="aiFutureUse" value="Other">
+                                <span>Other:</span>
+                                <input type="text" class="other-input" data-for="aiFutureUse" placeholder="specify">
+                            </label>
+                            <label class="option-item"><input type="checkbox" name="aiFutureUse" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-label">How do you currently manage context when working with AI across sessions?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" name="contextMgmt" value="Copy-paste between sessions"><span>Copy-paste between sessions</span></label>
+                            <label class="option-item"><input type="checkbox" name="contextMgmt" value="Use project configuration files"><span>Use project configuration files (e.g. CLAUDE.md, AGENTS.md)</span></label>
+                            <label class="option-item"><input type="checkbox" name="contextMgmt" value="Keep separate notes"><span>Keep separate notes</span></label>
+                            <label class="option-item"><input type="checkbox" name="contextMgmt" value="Rely on the tool's built-in memory"><span>Rely on the tool's built-in memory</span></label>
+                            <label class="option-item"><input type="checkbox" name="contextMgmt" value="Not sure"><span>Not sure</span></label>
+                            <label class="option-item"><input type="checkbox" name="contextMgmt" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="field-label">Which skills do you want to develop?</div>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" name="skillsDevelop" value="Writing effective prompts"><span>Writing effective prompts</span></label>
+                            <label class="option-item"><input type="checkbox" name="skillsDevelop" value="Setting up project configurations"><span>Setting up project configurations</span></label>
+                            <label class="option-item"><input type="checkbox" name="skillsDevelop" value="Building multi-step workflows"><span>Building multi-step workflows</span></label>
+                            <label class="option-item"><input type="checkbox" name="skillsDevelop" value="Using version control alongside AI tools"><span>Using version control alongside AI tools</span></label>
+                            <label class="option-item"><input type="checkbox" name="skillsDevelop" value="Debugging AI-generated code"><span>Debugging AI-generated code</span></label>
+                            <label class="option-item"><input type="checkbox" name="skillsDevelop" value="Documenting AI use for research transparency"><span>Documenting AI use for research transparency</span></label>
+                            <label class="option-item">
+                                <input type="checkbox" name="skillsDevelop" value="Other">
+                                <span>Other:</span>
+                                <input type="text" class="other-input" data-for="skillsDevelop" placeholder="specify">
+                            </label>
+                            <label class="option-item"><input type="checkbox" name="skillsDevelop" value="Prefer not to answer"><span>Prefer not to answer</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="automateTask">What specific task would you most like to automate first?</label>
+                        <textarea id="automateTask" name="automateTask" placeholder="Describe a task you'd like to automate..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="concerns">What concerns you most about using AI in your research?</label>
+                        <textarea id="concerns" name="concerns" placeholder="Share any concerns..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-nav" style="margin-top: 1.5rem;">
+                    <button type="button" class="btn btn-secondary btn-prev">Back</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                </div>
+
+                <div class="form-message" id="formMessage"></div>
+            </div>
+        </form>
+
+        <div class="page-counter" id="pageCounter">1 / 4</div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; {{ site.data.settings.company.year }} <a href="{{ site.data.settings.company.url }}" target="_blank" rel="noopener">{{ site.data.settings.company.name }}</a></p>
+    </footer>
+
+    <script>
+    (function() {
+        const form = document.getElementById('workshopForm');
+        const pages = document.querySelectorAll('.form-page');
+        const steps = document.querySelectorAll('.progress-step');
+        const counter = document.getElementById('pageCounter');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+        const totalPages = pages.length;
+        let currentPage = 0;
+
+        function showPage(index) {
+            pages.forEach(p => p.classList.remove('active'));
+            pages[index].classList.add('active');
+
+            steps.forEach((s, i) => {
+                s.classList.remove('active', 'completed');
+                if (i < index) s.classList.add('completed');
+                if (i === index) s.classList.add('active');
+            });
+
+            counter.textContent = (index + 1) + ' / ' + totalPages;
+            currentPage = index;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function validatePage(index) {
+            const page = pages[index];
+            let valid = true;
+
+            // Validate required text/email inputs
+            page.querySelectorAll('input[required], textarea[required]').forEach(input => {
+                const group = input.closest('.form-group');
+                if (!input.value.trim() || (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value))) {
+                    group.classList.add('invalid');
+                    valid = false;
+                } else {
+                    group.classList.remove('invalid');
+                }
+            });
+
+            return valid;
+        }
+
+        // "Other" input auto-checks the checkbox
+        document.querySelectorAll('.other-input').forEach(input => {
+            input.addEventListener('focus', () => {
+                const checkbox = input.closest('.option-item').querySelector('input[type="checkbox"]');
+                if (checkbox) checkbox.checked = true;
+            });
+        });
+
+        // Clear validation on input
+        form.addEventListener('input', e => {
+            const group = e.target.closest('.form-group');
+            if (group) group.classList.remove('invalid');
+        });
+
+        // Navigation
+        document.querySelectorAll('.btn-next').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (validatePage(currentPage) && currentPage < totalPages - 1) {
+                    showPage(currentPage + 1);
+                }
+            });
+        });
+
+        document.querySelectorAll('.btn-prev').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (currentPage > 0) showPage(currentPage - 1);
+            });
+        });
+
+        // Collect multi-select values (with "Other" text)
+        function getMultiValues(name) {
+            const checked = form.querySelectorAll('input[name="' + name + '"]:checked');
+            const values = [];
+            checked.forEach(cb => {
+                if (cb.value === 'Other') {
+                    const otherInput = form.querySelector('.other-input[data-for="' + name + '"]');
+                    const otherVal = otherInput ? otherInput.value.trim() : '';
+                    values.push(otherVal ? 'Other: ' + otherVal : 'Other');
+                } else {
+                    values.push(cb.value);
+                }
+            });
+            return values.join('; ');
+        }
+
+        // Collect single-select value
+        function getRadioValue(name) {
+            const selected = form.querySelector('input[name="' + name + '"]:checked');
+            return selected ? selected.value : '';
+        }
+
+        // Submit
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Honeypot check
+            const honeypot = form.querySelector('input[name="website"]');
+            if (honeypot && honeypot.value) return;
+
+            if (!validatePage(currentPage)) return;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            formMessage.className = 'form-message';
+
+            try {
+                const data = {
+                    email: form.querySelector('#email').value.trim(),
+                    firstName: form.querySelector('#name').value.trim(),
+                    affiliation: form.querySelector('#affiliation').value.trim(),
+                    attendance: getRadioValue('attendance'),
+                    tools: getMultiValues('tools'),
+                    editors: getMultiValues('editors'),
+                    languages: getMultiValues('languages'),
+                    commandLine: getRadioValue('commandLine'),
+                    cybersecurity: getRadioValue('cybersecurity'),
+                    llms: getMultiValues('llms'),
+                    aiTools: getMultiValues('aiTools'),
+                    chatVsAgent: getRadioValue('chatVsAgent'),
+                    aiResearchUse: getMultiValues('aiResearchUse'),
+                    aiFutureUse: getMultiValues('aiFutureUse'),
+                    contextMgmt: getMultiValues('contextMgmt'),
+                    skillsDevelop: getMultiValues('skillsDevelop'),
+                    automateTask: form.querySelector('#automateTask').value.trim(),
+                    concerns: form.querySelector('#concerns').value.trim()
+                };
+
+                // Submit to Loops.so form endpoint
+                const params = new URLSearchParams();
+                params.append('email', data.email);
+                params.append('firstName', data.firstName);
+                params.append('userGroup', 'the9x.ac');
+                params.append('source', 'https://the9x.ac/workshop');
+                params.append('mailingLists', '{{ site.data.settings.loops.mailing_list_id }}');
+
+                // Add all survey fields as custom properties
+                const surveyFields = [
+                    'affiliation', 'attendance', 'tools', 'editors', 'languages',
+                    'commandLine', 'cybersecurity', 'llms', 'aiTools', 'chatVsAgent',
+                    'aiResearchUse', 'aiFutureUse', 'contextMgmt', 'skillsDevelop',
+                    'automateTask', 'concerns'
+                ];
+                surveyFields.forEach(field => {
+                    if (data[field]) params.append(field, data[field]);
+                });
+
+                const response = await fetch('{{ site.data.settings.loops.form_endpoint }}/{{ site.data.settings.loops.form_id }}', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    formMessage.textContent = 'Thanks! Your responses have been recorded.';
+                    formMessage.className = 'form-message success';
+                    form.reset();
+                    // Show all steps as completed
+                    steps.forEach(s => { s.classList.remove('active'); s.classList.add('completed'); });
+                    counter.textContent = 'Complete';
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+            } catch (error) {
+                console.error('Submission failed:', error);
+                formMessage.textContent = 'Something went wrong. Please try again.';
+                formMessage.className = 'form-message error';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit';
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
